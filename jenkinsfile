@@ -7,7 +7,7 @@ node {
         sh label: '', script: 'mvn install'
     }
     stage("unit Testing"){
-        echo "Test completed"
+        echo "Test completed ju st now"
     }
     stage("Deploy"){
         echo "Deploy Completed"
