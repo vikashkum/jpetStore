@@ -1,15 +1,23 @@
-node {
+pipeline{
+    agent any 
+    stages {
+          stage ('Compile Stage') {
+                 steps {
+                       withMaven(maven : 'maven 3_3_9'){
+                             sh 'mvn clean compile'
+                       }
+                 }
+          }
+          stage('Testing Stage') {
+                steps {
+                       steps {
+                            withMaven(maven : 'maven 3_3_9'){
+                             sh 'mvn clean test'
+                       }   
+                      }
+                }
+          }
+       
+    }
 
-    stage("checkout"){
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/vikashkum/jpetStore']]])
-    }
-    stage("build"){
-        sh label: '', script: 'mvn install'
-    }
-    stage("unit Testing"){
-        echo "Test completed ju st now"
-    }
-    stage("Deploy"){
-        echo "Deploy Completed"
-    }
 }
